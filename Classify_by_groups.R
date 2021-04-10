@@ -2,7 +2,11 @@ library(readxl)
 
 # read tables
 
-sppTable <- read_excel("gava_G3_olkhitun_2017_spp.xlsx")
+args <- commandArgs()
+print(args)
+n <- as.numeric(args[7])
+sppTable <- read_excel(args[6], sheet = n)
+
 vascularPlants <- read_excel("SPECIES_1_VASCULAR_PLANT.xlsx")
 mossPlants <- read_excel("SPECIES_2_MOSS.xlsx")
 liverwortPlants <- read_excel("SPECIES_3_LIVERWORT.xlsx")
@@ -45,6 +49,6 @@ cat("Plants in dataset:", length(plantsFromSppTable),
 total <- numOfVascular+numOfMoss+numOfLiverwort+numOfLichen+numOfUnknow
 
 if (total == length(plantsFromSppTable)) {
-  cat("All plants classifed")
+  cat("\nAll plants classifed")
   } else cat("Some plants not classifed")
 
