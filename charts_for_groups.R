@@ -1,16 +1,21 @@
 library(readxl)
 library(tibble)
 library(ggplot2)
-library(gtools)
 
-speciesRichness <- read_excel('datasets_with_species_richness.xlsx')
+args <- commandArgs()
+print(args)
+n <- as.numeric(args[7])
+speciesRichness <- read_excel(args[6], sheet = n)
+
+
 speciesRichnessSorted <- speciesRichness[order(as.integer(speciesRichness$Vascular),decreasing = FALSE), ]
-speciesRichness$Dataset_name <- factor(speciesRichness$Dataset_name, levels = speciesRichness$Dataset_name[order(speciesRichness$Vascular)])
+speciesRichness$Dataset_name <- factor(speciesRichness$Dataset_name, 
+                                       levels = speciesRichness$Dataset_name[order(speciesRichness[args[8]])])
 
 ggplot(data = speciesRichness,
-       mapping = aes(y = Vascular,
+       mapping = aes(y = speciesRichness[[args[8]]],
                      x = Dataset_name)) +
   geom_point(size=2.5) +
+  ylab(args[8]) +
   theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust = 0.5))
-
 str(speciesRichnessSorted)
