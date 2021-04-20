@@ -8,7 +8,7 @@ n <- as.numeric(args[7])
 speciesRichness <- read_excel(args[6], sheet = n)
 
 
-speciesRichnessSorted <- speciesRichness[order(as.integer(speciesRichness$Vascular),decreasing = FALSE), ]
+speciesRichnessSorted <- speciesRichness[order(as.integer(speciesRichness[[args[8]]]),decreasing = FALSE), ]
 speciesRichness$Dataset_name <- factor(speciesRichness$Dataset_name, 
                                        levels = speciesRichness$Dataset_name[order(speciesRichness[args[8]])])
 
